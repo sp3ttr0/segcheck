@@ -89,7 +89,7 @@ cat > "$html_output" <<'EOF'
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Network Segmentation Test Netcat Results</title>
+<title>segcheck - Network Segmentation Validation Tool</title>
 
 <style>
 body {
@@ -98,7 +98,7 @@ body {
   padding: 24px;
 }
 
-h1 {
+h1, h2, h3 {
   margin-bottom: 5px;
 }
 
@@ -188,7 +188,9 @@ function sortTable(n) {
 </head>
 <body>
 
-<h1>Network Segmentation Test Netcat Results</h1>
+<h1>segcheck</h1>
+<h2>Network Segmentation Validation Tool</h2>
+<h3>Network Segmentation Test Netcat Results</h3>
 
 <div class="summary" id="summaryBox">
 Loading summary…
