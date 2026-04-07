@@ -1,6 +1,6 @@
 # segcheck
 
-***segcheck** is a lightweight Bash tool for validating network segmentation controls using Nmap scan results + Netcat verification.
+**segcheck** is a lightweight Bash tool for validating network segmentation controls using Nmap scan results + Netcat verification.
 
 It parses Nmap output, tests connectivity to discovered open ports using Netcat (twice), and generates:
 
@@ -9,6 +9,7 @@ It parses Nmap output, tests connectivity to discovered open ports using Netcat 
 🌐 Interactive HTML report
 
 🖥️ Colored terminal output
+
 
 
 ## 🖥️ Terminal
