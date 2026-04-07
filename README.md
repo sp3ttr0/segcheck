@@ -24,32 +24,37 @@ Traffic From   Traffic To   Status   Source IP   Destination IP   Open Ports   N
 ```
 
 
-##⚙️ Requirements
+## ⚙️ Requirements
+```
 bash
 nmap
 netcat (nc)
 ipcalc
 dig (for hostname resolution)
+```
 
 
-##📥 Installation
+## 📥 Installation
 ```bash
 git clone https://github.com/spettro/segcheck.git
 cd segcheck
 chmod +x segcheck.sh
 ```
 
-##🧪 Usage
+
+## 🧪 Usage
 ```bash
 ./segcheck.sh -f <traffic_from_subnet> -t <targets_file> -o <output.csv> <nmap_output_files...>
 ```
 
-##📌 Arguments
+
+## 📌 Arguments
+```bash
 | Option | Description                               |
 | ------ | ----------------------------------------- |
 | `-f`   | Source subnet (Traffic From)              |
 | `-t`   | Targets file (IPs, subnets, or hostnames) |
 | `-o`   | Output CSV file (HTML is auto-generated)  |
-
+```
 
 
