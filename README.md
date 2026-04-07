@@ -41,7 +41,7 @@ dig (for hostname resolution)
 
 ## 📥 Installation
 ```bash
-git clone https://github.com/spettro/segcheck.git
+git clone https://github.com/sp3ttr0/segcheck.git
 cd segcheck
 chmod +x segcheck.sh
 ```
