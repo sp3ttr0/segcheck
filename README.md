@@ -5,8 +5,11 @@
 It parses Nmap output, tests connectivity to discovered open ports using Netcat (twice), and generates:
 
 📄 CSV report
+
 🌐 Interactive HTML report
+
 🖥️ Colored terminal output
+
 
 
 ```bash
