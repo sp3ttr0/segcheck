@@ -272,9 +272,6 @@ find_traffic_to() {
 # ======= MAIN LOGIC =======
 
 if [ -z "$combined_ips_and_ports" ]; then
-    echo "[!] No open ports found in Nmap output."
-    echo "[+] Generating PASS entries for all targets."
-
     for target in "${targets[@]}"; do
         printf "%s,%s,%s,%s,%s,%s,%s\n" "$traffic_from" "$target" "PASS" "$source_ip" "N/A" "N/A" "No open ports detected" >> "$csv_output"
         printf "%-17s %-25s %-8s %-17s %-16s %-20s %-30s\n" "$traffic_from" "$target" "PASS" "$source_ip" "N/A" "N/A" "No open ports detected" >> "$terminal_output"
