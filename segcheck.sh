@@ -222,9 +222,11 @@ EOF
 
 {
     echo -e "========================================"
-    echo -e " segcheck"
-    echo -e " Network Segmentation Validation Tool"
-    echo -e "========================================\n"
+    echo -e "segcheck"
+    echo -e "Network Segmentation Validation Tool"
+    echo -e "========================================\n\n"
+
+    echo -e "Network Segmentation Test Netcat Results\n"
     printf "%-17s %-25s %-8s %-17s %-16s %-20s %-30s\n" "Traffic From" "Traffic To" "Status" "Source IP" "Destination IP" "Open Ports" "Notes"
     printf "%-17s %-25s %-8s %-17s %-16s %-20s %-30s\n" "-------------" "------------------------" "------" "--------------" "--------------" "----------" "-----"
 } > "$terminal_output"
