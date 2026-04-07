@@ -11,8 +11,9 @@ It parses Nmap output, tests connectivity to discovered open ports using Netcat 
 🖥️ Colored terminal output
 
 
+## 📂 Output Example
 
-## 🖥️ Terminal
+🖥️ Terminal
 ```bash
 ========================================
  segcheck
