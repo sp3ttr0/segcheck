@@ -332,7 +332,7 @@ else
             note2=$(echo "$nc_out2" | grep -Ei "(open|succeeded|refused)" | sed 's/^.*: //')
 
             notes_plain="Run1: $note1 | Run2: $note2 (UDP)"
-            notes_csv="Run1: $note1\nRun2: $note2 (UDP)"
+            notes_csv="Run1: $note1 | Run2: $note2 (UDP)"
             notes_html="Run1: $note1<br>Run2: $note2 (UDP)"
 
         fi
