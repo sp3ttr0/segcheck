@@ -7,16 +7,16 @@ NC='\033[0m' # No Color
 
 # Function to display usage information
 usage() {
-    echo "Usage: $0 -f <traffic_from_subnet> -s<source_IP> -t <targets_file> -o <output_file> <nmap_output_file1> [<nmap_output_file2> ...]"
-    echo "  -s   (Optional) Source IP override"
+    echo "Usage: $0 -f <traffic_from_subnet> -s <source_IP> -t <targets_file> -o <output_file> <nmap_output_file1> [<nmap_output_file2> ...]"
     echo "  -f   Subnet defining the Traffic From (e.g., 10.1.42.0/24)"
+    echo "  -s   (Optional) Source IP override"
     echo "  -t   File containing targets (IPs, hostnames, or subnets)"
     echo "  -o   Output CSV and HTML file"
     exit 1
 }
 
 # Parse options
-while getopts ":f:t:o:" opt; do
+while getopts ":f:s:t:o:" opt; do
     case ${opt} in
         f )
             traffic_from=$OPTARG
