@@ -7,8 +7,8 @@ NC='\033[0m' # No Color
 
 # Function to display usage information
 usage() {
-    echo "Usage: $0 -f <traffic_from_subnet> -t <targets_file> -o <output_file> <nmap_output_file1> [<nmap_output_file2> ...]"
-    echo
+    echo "Usage: $0 -f <traffic_from_subnet> -s<source_IP> -t <targets_file> -o <output_file> <nmap_output_file1> [<nmap_output_file2> ...]"
+    echo "  -s   (Optional) Source IP override"
     echo "  -f   Subnet defining the Traffic From (e.g., 10.1.42.0/24)"
     echo "  -t   File containing targets (IPs, hostnames, or subnets)"
     echo "  -o   Output CSV and HTML file"
@@ -20,6 +20,9 @@ while getopts ":f:t:o:" opt; do
     case ${opt} in
         f )
             traffic_from=$OPTARG
+            ;;
+        s )
+            source_ip=$OPTARG
             ;;
         t )
             targets_file=$OPTARG
@@ -52,11 +55,18 @@ fi
 # Load targets
 mapfile -t targets < "$targets_file"
 
-# Detect source IP
-source_ip=$(ip -o -4 addr show | awk '!/127.0.0.1/ {print $4}' | cut -d/ -f1 | head -n1)
-if [ -z "$source_ip" ]; then
-    echo "Error: Unable to determine source IP."
+# Detect source IP only if not provided
+if [ -n "$source_ip" ] && ! [[ "$source_ip" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "Error: Invalid source IP format."
     exit 1
+fi
+
+if [ -z "$source_ip" ]; then
+    source_ip=$(ip -o -4 addr show | awk '!/127.0.0.1/ {print $4}' | cut -d/ -f1 | head -n1)
+    if [ -z "$source_ip" ]; then
+        echo "Error: Unable to determine source IP."
+        exit 1
+    fi
 fi
 
 # Combine and parse Nmap outputs
@@ -337,20 +347,8 @@ else
 
         fi
 
-
-
         printf "%s,%s,%s,%s,%s,%s,\"%b\"\n" \
         "$traffic_from" "$traffic_to" "$status" "$source_ip" "$ip" "$port/$protocol" "$notes_csv" >> "$csv_output"
-
-        # ----- TERMINAL OUTPUT -----
-        printf "%-17s %-25s %-8s %-17s %-16s %-20s %s\n" \
-        "$traffic_from" "$traffic_to" "$status_colored" "$source_ip" "$ip" "$port/$protocol" \
-        "Run1: $note1" >> "$terminal_output"
-
-        printf "%-17s %-25s %-8s %-17s %-16s %-20s %s\n" \
-        "" "" "" "" "" "" \
-        "Run2: $note2 ($protocol)" >> "$terminal_output"
-
 
         if [ "$status" = "FAIL" ]; then
             status_class="status-fail"
@@ -362,6 +360,14 @@ else
             pass_count=$((pass_count+1))
         fi
 
+        # ----- TERMINAL OUTPUT -----
+        printf "%-17s %-25s %-8s %-17s %-16s %-20s %s\n" \
+        "$traffic_from" "$traffic_to" "$status_colored" "$source_ip" "$ip" "$port/$protocol" \
+        "Run1: $note1" >> "$terminal_output"
+
+        printf "%-17s %-25s %-8s %-17s %-16s %-20s %s\n" \
+        "" "" "" "" "" "" \
+        "Run2: $note2 ($protocol)" >> "$terminal_output"
 
         printf "<tr data-status='%s'><td>%s</td><td>%s</td><td class='%s'>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>\n" \
         "$status" "$traffic_from" "$traffic_to" "$status_class" "$status" "$source_ip" "$ip" "$port/$protocol" "$notes_html" >> "$html_output"
