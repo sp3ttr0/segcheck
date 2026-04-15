@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# ===============================================================
+# segcheck.sh - Network Segmentation Validation Tool
+# ---------------------------------------------------------------
+# Author: Howell King Jr. | Github: https://github.com/sp3ttr0
+# ===============================================================
+
 # Colors
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -234,6 +240,7 @@ EOF
     echo -e "======================================="
     echo -e "segcheck"
     echo -e "Network Segmentation Validation Tool"
+    echo -e "by sp3ttr0"
     echo -e "=======================================\n\n"
 
     echo -e "Network Segmentation Test Netcat Results\n"
