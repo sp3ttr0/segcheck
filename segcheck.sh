@@ -79,7 +79,12 @@ fi
 nmap_outputs="$@"
 combined_ips_and_ports=$(awk '
     /Nmap scan report for/ {
-        ip = $NF
+        if ($NF ~ /\)/) {
+            gsub(/[()]/, "", $NF)
+            ip = $NF
+        } else {
+            ip = $NF
+        }
     }
     /open/ {
         split($1, port_info, "/")
@@ -317,7 +322,7 @@ else
             nc_out1=$(nc -zvv $ip $port 2>&1)
 
             # Second run determines status and notes
-            nc_out2=$(nc -zvvv $ip $port 2>&1)
+            nc_out2=$(nc -zvv $ip $port 2>&1)
             if echo "$nc_out2" | grep -Ei "(open|succeeded)" &>/dev/null; then
                 status="FAIL"
                 any_fail_found=true
@@ -337,7 +342,7 @@ else
             nc_out1=$(nc -uzvv $ip $port -w 1 2>&1)
 
             # Second run determines status and notes
-            nc_out2=$(nc -uzvvv $ip $port -w 1 2>&1)
+            nc_out2=$(nc -uzvv $ip $port -w 1 2>&1)
             if echo "$nc_out2" | grep -Ei "(open|succeeded)" &>/dev/null; then
                 status="FAIL"
                 any_fail_found=true
